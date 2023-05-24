@@ -1,0 +1,24 @@
+version: '3.9'
+
+services:
+  localstack:
+    image: localstack/localstack:2.0.2
+    container_name: sandbox-localstack
+    ports:
+      - 11566:4566 # Locakstack Gateway
+      # - 4510-4559:4510-4559 # external services port range
+    volumes:
+      - sandbox-localstack-volume:/var/lib/localstack
+      - ./container/ready.d:/etc/localstack/init/ready.d
+      - ./container/files:/custom-files
+    environment:
+      - DEBUG=1
+      - "/var/run/docker.sock:/var/run/docker.sock"
+      # To use AWS CLI in this container, any values must be set
+      - AWS_ACCESS_KEY_ID=dummy
+      - AWS_SECRET_ACCESS_KEY=dummy
+      - AWS_DEFAULT_REGION=ap-northeast-1
+      - AWS_DEFAULT_OUTPUT=json
+
+volumes:
+  sandbox-localstack-volume:

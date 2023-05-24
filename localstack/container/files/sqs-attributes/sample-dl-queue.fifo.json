@@ -1,0 +1,7 @@
+{
+  "MessageRetentionPeriod": "1209600",
+  "VisibilityTimeout": "180",
+  "DelaySeconds": "0",
+  "FifoQueue": "true",
+  "ContentBasedDeduplication": "false"
+}
