@@ -4,6 +4,7 @@ services:
   localstack:
     image: localstack/localstack:2.0.2
     container_name: sandbox-localstack
+    restart: unless-stopped
     ports:
       - 11566:4566 # Locakstack Gateway
       # - 4510-4559:4510-4559 # external services port range

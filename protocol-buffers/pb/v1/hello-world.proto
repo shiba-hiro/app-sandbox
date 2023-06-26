@@ -1,0 +1,10 @@
+syntax = "proto3";
+
+package helloworld.v1;
+
+option go_package = "pb-generated/v1";
+
+message HelloWorld {
+  string existingField = 1;
+}
+
