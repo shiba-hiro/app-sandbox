@@ -1,0 +1,37 @@
+version: "3.9"
+services:
+  postgres:
+    image: postgres:15.3
+    ports:
+      - "11532:5432"
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: pg-pass
+      POSTGRES_DB: postgres
+    volumes:
+      - sandbox-postgres-volume:/var/lib/postgresql/data
+      - ./init-db.sh:/docker-entrypoint-initdb.d/init-db.sh
+  go-dev:
+    build:
+      context: .
+      dockerfile: Dockerfile
+      target: development
+    tty: true
+    working_dir: /app
+    environment:
+      # root user ではないのでキャッシュディレクトリを変更
+      GOCACHE: /go/.cache
+      # dbconfig.yml から参照する
+      DB_HOSTNAME: postgres
+      DB_NAME: sandbox_db
+      DB_SCHEMA: app_default
+      DB_USER: test_user
+      DB_PASSWORD: password
+      DB_PORT: 5432
+    volumes:
+      - .:/app
+    depends_on:
+      - postgres
+    user: "1000:1000"
+volumes:
+  sandbox-postgres-volume:

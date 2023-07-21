@@ -1,0 +1,11 @@
+# sql-migrate new コマンドがdevelopmentを使ってしまうので回避
+development:
+  dialect: postgres
+  datasource: dummy
+  dir: migrations/postgres
+
+postgres-db:
+  dialect: postgres
+  datasource: dbname=${DB_NAME} host=${DB_HOSTNAME} user=${DB_USER} password=${DB_PASSWORD} sslmode=disable options=--search_path=${DB_SCHEMA}
+  dir: migrations/postgres
+  table: migrations
