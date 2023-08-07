@@ -2,15 +2,23 @@ type Brand<T, U> = T & { __brand: U };
 
 type Id<T> = Brand<string, T>;
 
-type UserId = Id<"User">;
-
-const UserId = (id: string): UserId => id as UserId;
-
 type User = {
-  id: UserId;
+  id: Id<"User">;
 };
 
-const getUser = (id: UserId): User => ({ id });
+const UserId = (id: string): User["id"] => id as User["id"];
+
+// const _failedSample: User = {
+//   Type 'string' is not assignable to type 'Id<"User">'.
+//   Type 'string' is not assignable to type '{ __brand: "User"; }'
+//   id: "abc",
+// };
+
+const _succeededSample: User = {
+  id: UserId("abc"),
+};
+
+const getUser = (id: User["id"]): User => ({ id });
 
 // これは通らない
 // getUser("abc");
@@ -29,4 +37,4 @@ console.log(
   `UserId("abc") === UserId("abc") : ${UserId("abc") === UserId("abc")}`
 );
 
-// type UserId = Brand<string, "UserId"> とかでもよいかも
+// 型定義は、直接 Brand<string, "UserId"> とかでもよいかも
