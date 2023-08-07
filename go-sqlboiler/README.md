@@ -12,6 +12,10 @@ https://github.com/rubenv/sql-migrate
 
 `docker compose exec -it go-dev /bin/bash`
 
+or
+
+`docker compose exec go-dev bash -c 'go mod tidy'`
+
 ---
 sql-migrate
 
