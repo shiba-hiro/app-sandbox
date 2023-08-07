@@ -29,6 +29,12 @@ getUser(UserId("abc"));
 // これも実行できる
 UserId("abc").includes("a");
 
+const logger = (msg: string) => {
+  console.log(msg);
+}
+// これも通る
+logger(UserId("abc"));
+
 console.log(`UserId("abc").includes("a") : ${UserId("abc").includes("a")}`);
 
 console.log(`UserId("abc") === "abc" : ${UserId("abc") === "abc"}`);
@@ -36,5 +42,9 @@ console.log(`UserId("abc") === "abc" : ${UserId("abc") === "abc"}`);
 console.log(
   `UserId("abc") === UserId("abc") : ${UserId("abc") === UserId("abc")}`
 );
+
+console.log(`typeof UserId("abc") === "string" : ${typeof UserId("abc") === "string"}`);
+
+console.log(`!!UserId("abc") : ${!!UserId("abc")}`);
 
 // 型定義は、直接 Brand<string, "UserId"> とかでもよいかも
